@@ -22,14 +22,14 @@ from dotenv import load_dotenv
 @st.cache_resource
 def load_model():
     llm = ChatUpstage(
-        api_key=api_key,
+        api_key=st.session_state.api_key,
     )
     return llm
 
 def load_retriever(weeks=None):
     embeddings = UpstageEmbeddings(
         model="solar-embedding-1-large-query",
-        api_key=api_key,
+        api_key=st.session_state.api_key,
     )
     vectorstorage = Chroma(persist_directory=f'./db/{selectedCourse}', embedding_function=embeddings)
     if weeks:
