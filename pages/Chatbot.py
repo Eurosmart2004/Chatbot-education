@@ -128,12 +128,18 @@ def ai_response(user_query):
 
 
 if __name__ == '__main__':
+    if 'api_key' not in st.session_state:
+        st.session_state.api_key = ''
+
     folder = "db"
     courseList = []
     for name in os.listdir(folder):
         courseList.append(name)
 
     api_key = st.sidebar.text_input("Enter your Upstage API key")
+
+    if api_key != "":
+        st.session_state.api_key = api_key
         
     selectedCourse = st.sidebar.selectbox("Select a course", courseList, index=0)
     st.title(f'Chatbot {selectedCourse}')
@@ -156,29 +162,30 @@ if __name__ == '__main__':
 
 
 
+    if st.session_state.api_key != '':
+        user_query = st.chat_input("Message chatbot")
 
-    user_query = st.chat_input("Message chatbot")
-    if user_query is not None and user_query != "":
-        with st.chat_message("Human"):
-            st.markdown(user_query)
-        st.session_state.chat_history[selectedCourse].append(HumanMessage(user_query))
-        with st.spinner("Thinking..."):
-            videos = []
+        if user_query is not None and user_query != "":
+            with st.chat_message("Human"):
+                st.markdown(user_query)
+            st.session_state.chat_history[selectedCourse].append(HumanMessage(user_query))
+            with st.spinner("Thinking..."):
+                videos = []
 
-            def response_generator():
-                for answer, video_list in ai_response(user_query):
-                    videos.extend(video_list)
-                    yield answer
+                def response_generator():
+                    for answer, video_list in ai_response(user_query):
+                        videos.extend(video_list)
+                        yield answer
 
-            answer = st.write_stream(response_generator())
+                answer = st.write_stream(response_generator())
 
-            st.session_state.chat_history[selectedCourse].append(AIMessage(answer))
+                st.session_state.chat_history[selectedCourse].append(AIMessage(answer))
 
 
-            for video in videos:
-                if should_show_video(video['text'], user_query, answer):
-                    st.session_state.chat_history[selectedCourse].append(Video(video['source'], video['Start'], video['End']))
-                    st.video(video['source'], start_time=video['Start'])
+                for video in videos:
+                    if should_show_video(video['text'], user_query, answer):
+                        st.session_state.chat_history[selectedCourse].append(Video(video['source'], video['Start'], video['End']))
+                        st.video(video['source'], start_time=video['Start'])
         
 
         
