@@ -13,17 +13,19 @@ import os
 from tool import process_resonse, extract_video, extract_weeks, Video
 from dotenv import load_dotenv
 
-load_dotenv()
+# load_dotenv()
 
 @st.cache_resource
 def load_model():
-    llm = ChatUpstage()
+    llm = ChatUpstage(
+        api_key=api_key,
+    )
     return llm
 
 def load_retriever(weeks=None):
     embeddings = UpstageEmbeddings(
         model="solar-embedding-1-large-query",
-
+        api_key=api_key,
     )
     vectorstorage = Chroma(persist_directory=f'db/{selectedCourse}', embedding_function=embeddings)
     if weeks:
@@ -79,13 +81,12 @@ qa_prompt = ChatPromptTemplate.from_messages(
 
 def should_show_video(text, input, answer):
     llm = load_model()
-    response = llm.invoke(f"Are the text in video '{text}' and AI response '{answer}' relevant to the user query {input}? Answer yes or no")
+    response = llm.invoke(f"Is the user query '{input}' about a course? Does the answer in the video '{answer}' support the query? Are the answer and the text '{text}' relevant to the context of the user query? Answer yes or no")
 
     if 'Yes' in response.content:
         return True
 
     return False
-
 
 
 
@@ -131,6 +132,8 @@ if __name__ == '__main__':
     courseList = []
     for name in os.listdir(folder):
         courseList.append(name)
+
+    api_key = st.sidebar.text_input("Enter your Upstage API key")
         
     selectedCourse = st.sidebar.selectbox("Select a course", courseList, index=0)
     st.title(f'Chatbot {selectedCourse}')
