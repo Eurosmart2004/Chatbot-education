@@ -135,7 +135,7 @@ if __name__ == '__main__':
     if 'api_key' not in st.session_state:
         st.session_state.api_key = ''
 
-    folder = "db"
+    folder = "./db"
     courseList = []
     for name in os.listdir(folder):
         courseList.append(name)
