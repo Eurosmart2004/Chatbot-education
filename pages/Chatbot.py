@@ -31,7 +31,7 @@ def load_retriever(weeks=None):
         model="solar-embedding-1-large-query",
         api_key=api_key,
     )
-    vectorstorage = Chroma(persist_directory=f'db/{selectedCourse}', embedding_function=embeddings)
+    vectorstorage = Chroma(persist_directory=f'./db/{selectedCourse}', embedding_function=embeddings)
     if weeks:
         # Create a filter dictionary to check if the document's week is in the list of weeks
         filter_dict = {"week": {"$in": weeks}}
