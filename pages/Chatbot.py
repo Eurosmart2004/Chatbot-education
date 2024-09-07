@@ -1,3 +1,6 @@
+import('pysqlite3')
+import sys
+sys.modules['sqlite3'] = sys.modules.pop('pysqlite')
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -12,6 +15,7 @@ from langchain.chains.history_aware_retriever import create_history_aware_retrie
 import os
 from tool import process_resonse, extract_video, extract_weeks, Video
 from dotenv import load_dotenv
+
 
 # load_dotenv()
 
