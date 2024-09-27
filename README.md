@@ -4,7 +4,7 @@ This project aims to revolutionize the way we learn and teach. Our chatbot uses 
 
 ## Demo
 
-You can access a live demo of our chatbot at [https://chatbot-education.streamlit.app/](https://chatbot-education.streamlit.app/).
+You can access a live demo of our chatbot at [here](https://chatbot-education.streamlit.app/).
 
 ## Features
 
