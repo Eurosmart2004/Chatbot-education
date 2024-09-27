@@ -2,6 +2,10 @@
 
 This project aims to revolutionize the way we learn and teach. Our chatbot uses the state-of-the-art RAG (Retrieval-Augmented Generation) technique and Langchain to provide accurate and reliable information.
 
+## Demo
+
+You can access a live demo of our chatbot at [https://chatbot-education.streamlit.app/](https://chatbot-education.streamlit.app/).
+
 ## Features
 
 - RAG Technique: Our chatbot uses the state-of-the-art RAG (Retrieval-Augmented Generation) technique to provide accurate and reliable information.
