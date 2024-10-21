@@ -6,6 +6,13 @@ This project aims to revolutionize the way we learn and teach. Our chatbot uses 
 
 You can access a live demo of our chatbot at [here](https://chatbot-education.streamlit.app/).
 
+### Courses Integrated
+
+Our chatbot leverages content from the following courses at Swinburne University:
+
+- **COS30019 - Introduction to AI**: This course covers the fundamentals of artificial intelligence, including machine learning, neural networks, and natural language processing. Our chatbot uses this knowledge to provide insightful responses and educational resources.
+- **COS30043 - Interface Design and Development**: This course focuses on the principles of designing and developing user interfaces and user experience, with a specific emphasis on teaching Vue.js, a popular open-source JavaScript framework for building user interfaces and single-page applications.
+
 ## Features
 
 - RAG Technique: Our chatbot uses the state-of-the-art RAG (Retrieval-Augmented Generation) technique to provide accurate and reliable information.
