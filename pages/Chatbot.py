@@ -20,7 +20,22 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Dropbox access
-DROPBOX_ACCESS_TOKEN = os.getenv('DROPBOX_ACCESS_TOKEN')
+DROPBOX_APP_KEY = os.getenv('DROPBOX_APP_KEY')
+DROPBOX_APP_SECRET = os.getenv('DROPBOX_APP_SECRET')
+DROPBOX_REFRESH_TOKEN = os.getenv('DROPBOX_REFRESH_TOKEN')
+
+def generate_access_token_from_refresh_token():
+    dbx = dropbox.Dropbox(
+        app_key=DROPBOX_APP_KEY,
+        app_secret=DROPBOX_APP_SECRET,
+        oauth2_refresh_token=DROPBOX_REFRESH_TOKEN
+    )
+    dbx.check_user()
+    access_token = dbx._oauth2_access_token
+    return access_token
+
+# Generate and set the access token
+DROPBOX_ACCESS_TOKEN = generate_access_token_from_refresh_token()
 
 # Initialize Dropbox client
 dbx = dropbox.Dropbox(DROPBOX_ACCESS_TOKEN)
